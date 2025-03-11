@@ -36,8 +36,10 @@ def train(args):
     dataset_config = config['dataset_params']
     train_config = config['train_params']
 
-    log_dir = os.path.join('runs', train_config['task_name'], datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+    log_dir = os.path.join('runs', f"{train_config['task_name']}_Part3", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
     writer = SummaryWriter(log_dir=log_dir)
+    
+    writer.add_text('Project_Part', 'Part 3: Single Class, Multiple Objects Per Frame', 0)
 
     seed = train_config['seed']
     torch.manual_seed(seed)

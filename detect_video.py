@@ -45,21 +45,14 @@ def draw_detections(frame, detections, frame_w, frame_h, label_name='person'):
     labels = detections[0]['labels'].detach().cpu().numpy()
     scores = detections[0]['scores'].detach().cpu().numpy()
 
-    max_score = -1
-    max_score_idx = -1
-    
     for i, (label, score) in enumerate(zip(labels, scores)):
-        if label == 1 and score > max_score:
-            max_score = score
-            max_score_idx = i
-    
-    if max_score_idx >= 0:
-        box = boxes[max_score_idx]
-        x1, y1, x2, y2 = box
-        x1, y1, x2, y2 = int(x1 * frame_w), int(y1 * frame_h), int(x2 * frame_w), int(y2 * frame_h)
-        cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 0, 255), thickness=2)
-        text = f"{label_name}: {max_score:.2f}"
-        cv2.putText(frame, text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        if label == 1:
+            box = boxes[i]
+            x1, y1, x2, y2 = box
+            x1, y1, x2, y2 = int(x1 * frame_w), int(y1 * frame_h), int(x2 * frame_w), int(y2 * frame_h)
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color=(0, 0, 255), thickness=2)
+            text = f"{label_name}: {score:.2f}"
+            cv2.putText(frame, text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
 def process_video(video_path, output_path, model, config):
     model.low_score_threshold = config['train_params']['infer_conf_threshold']

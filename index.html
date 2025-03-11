@@ -64,6 +64,15 @@
             color: #666;
             border-top: 1px solid #ddd;
         }
+        /* Add fallback content styles */
+        .fallback-message {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -79,7 +88,7 @@
                 <h3 class="video-title">Project3Part2</h3>
             </div>
             <div class="video-wrapper">
-                <video controls>
+                <video controls preload="metadata" poster="videos/poster-part2.jpg">
                     <source src="videos/Project3Part2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -92,7 +101,7 @@
                 <h3 class="video-title">Project3Part3</h3>
             </div>
             <div class="video-wrapper">
-                <video controls>
+                <video controls preload="metadata" poster="videos/poster-part3.jpg">
                     <source src="videos/Project3Part3.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -105,7 +114,7 @@
                 <h3 class="video-title">Project3Part4</h3>
             </div>
             <div class="video-wrapper">
-                <video controls>
+                <video controls preload="metadata" poster="videos/poster-part4.jpg">
                     <source src="videos/Project3Part4.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>

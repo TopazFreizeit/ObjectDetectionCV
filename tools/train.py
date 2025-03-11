@@ -19,17 +19,11 @@ import torch.nn.utils as utils
 from torch.utils.tensorboard import SummaryWriter
 import datetime
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-    print(f'Using CUDA device: {torch.cuda.get_device_name(0)}')
-else:
-    device = torch.device('cpu')
-    print('CUDA not available, using CPU')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def collate_function(data):
     return tuple(zip(*data))
+
 
 def train(args):
     with open(args.config_path, 'r') as file:
@@ -58,9 +52,7 @@ def train(args):
     train_dataset = DataLoader(voc,
                                batch_size=train_config['batch_size'],
                                shuffle=True,
-                               collate_fn=collate_function,
-                               num_workers=4,  
-                               pin_memory=True)
+                               collate_fn=collate_function)
 
     model = SSD(config=config['model_params'],
                 num_classes=dataset_config['num_classes'])
